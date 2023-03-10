@@ -204,3 +204,7 @@ volumeMounts:
 - mountPath: ${AMQ_CONFIGS_DIR}
   name: amq-broker-configs
 ```
+
+### Summary
+
+This guide demonstrated how to configure basic auth and RBAC for the AMQ 7.x console interface.
