@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements. See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License. You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<management-context xmlns="http://activemq.org/schema">
+   <!--<connector connector-port="1099"/>-->
+   <authorisation>
+      <whitelist>
+         <entry domain="hawtio"/>
+         <!-- <entry domain="org.apache.activemq.artemis"/> -->
+      </whitelist>
+      <default-access>
+         <access method="list*" roles="admin"/>
+         <access method="get*" roles="admin"/>
+         <access method="is*" roles="admin"/>
+         <access method="set*" roles="admin"/>
+         <access method="*" roles="admin"/>
+      </default-access>
+      <role-access>
+         <match domain="org.apache.activemq.artemis">
+            <access method="list*" roles="admin,monitor"/>
+            <access method="get*" roles="admin,monitor"/>
+            <access method="is*" roles="admin,monitor"/>
+            <access method="set*" roles="admin"/>
+            <!-- Note count and browse are need to access the browse tab in the console-->
+            <access method="browse*" roles="admin,monitor"/>
+            <access method="count*" roles="admin,monitor"/>
+            <access method="*" roles="admin"/>
+         </match>
+         <!-- <match domain="org.apache.activemq.artemis" key="queue=DLQ">   
+            <access method="list*" roles="admin,producer,consumer,monitor"/>   
+            <access method="get*" roles="admin,producer,consumer,monitor"/>   
+            <access method="is*" roles="admin,producer,consumer,monitor"/>   
+            <access method="set*" roles="admin,producer,consumer,monitor"/>   
+            <access method="browse*" roles="admin,producer,consumer,monitor"/>
+            <access method="count*" roles="admin,producer,consumer,monitor"/>
+            <access method="*" roles="admin,monitor"/>
+         </match> -->
+         <match domain="org.apache.activemq.artemis" key="queue=DLQ">   
+            <access method="*" roles="admin,producer,consumer,monitor"/>   
+         </match>
+         <match domain="org.apache.activemq.artemis" key="queue=ExpiryQueue">   
+            <access method="*" roles="admin,producer,consumer,monitor"/>   
+         </match>
+         <!-- <match domain="org.apache.activemq.artemis" key="queue=ExpiryQueue">   
+            <access method="list*" roles="admin,producer,consumer,monitor"/>   
+            <access method="get*" roles="admin,producer,consumer,monitor"/>   
+            <access method="is*" roles="admin,producer,consumer,monitor"/>   
+            <access method="set*" roles="admin,producer,consumer,monitor"/> 
+            <access method="browse*" roles="admin,producer,consumer,monitor"/>
+            <access method="count*" roles="admin,producer,consumer,monitor"/>  
+            <access method="*" roles="admin,monitor"/>
+         </match> -->
+         <!--example of how to configure a specific object-->
+         <!--<match domain="org.apache.activemq.artemis" key="subcomponent=queues">
+            <access method="list*" roles="view,update,amq"/>
+            <access method="get*" roles="view,update,amq"/>
+            <access method="is*" roles="view,update,amq"/>
+            <access method="set*" roles="update,amq"/>
+            <access method="*" roles="amq"/>
+         </match>-->
+      </role-access>
+   </authorisation>
+</management-context>
