@@ -86,17 +86,17 @@ Add the following `<security-settings>` configs.
     </security-setting>
     <!-- Adding DLQ permissions -->
     <security-setting match="DLQ#">
-        <permission type="send" roles="admin,consumer,producer,support"/>
-        <permission type="consume" roles="admin,consumer,producer,support"/>
+        <permission type="send" roles="admin,support"/>
+        <permission type="consume" roles="admin,support"/>
         <permission type="manage" roles="admin,support"/>
-        <permission type="browse" roles="admin,producer,consumer,support"/>
+        <permission type="browse" roles="admin,support"/>
     </security-setting>
     <!-- Adding ExpiryQueue permissions -->
     <security-setting match="ExpiryQueue#">
-        <permission type="send" roles="admin,consumer,producer,support"/>
-        <permission type="consume" roles="admin,consumer,producer,support"/>
+        <permission type="send" roles="admin,support"/>
+        <permission type="consume" roles="admin,support"/>
         <permission type="manage" roles="admin,support"/>
-        <permission type="browse" roles="admin,producer,consumer,support"/>
+        <permission type="browse" roles="admin,support"/>
     </security-setting>
 </security-settings>
 
@@ -136,19 +136,19 @@ Add the following `<role-access>` configs.
         <access method="count*" roles="admin,consumer,producer,support"/>
         <access method="*" roles="admin"/>
     </match>
-    <!-- queue=DLQ: support, consumer, producer can everything but delete*, create*, destroy* -->
+    <!-- queue=DLQ: support can do everything but delete*, create*, destroy* -->
     <match domain="org.apache.activemq.artemis" key="queue=DLQ">   
         <access method="delete*" roles="admin"/>
         <access method="create*" roles="admin"/>
         <access method="destroy*" roles="admin"/>   
-        <access method="*" roles="admin,consumer,producer,support"/>
+        <access method="*" roles="admin,support"/>
     </match>
-    <!-- queue=ExpiryQueue: support, consumer, producer can everything but delete*, create*, destroy* -->
+    <!-- queue=ExpiryQueue: support can do everything but delete*, create*, destroy* -->
     <match domain="org.apache.activemq.artemis" key="queue=ExpiryQueue">   
         <access method="delete*" roles="admin"/>
         <access method="create*" roles="admin"/>
         <access method="destroy*" roles="admin"/>   
-        <access method="*" roles="admin,consumer,producer,support"/>
+        <access method="*" roles="admin,support"/>
     </match>
 </role-access>
 ```
