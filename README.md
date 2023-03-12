@@ -217,7 +217,7 @@ volumes:
           path: artemis-users.properties
 ```
 
-### 7. Mount `amq-broker-configs` volume item to `${AMQ_CONFIGS_DIR}`
+### 7. Mount `amq-broker-configs` volume item to broker instance/pod.
 
 ```yaml
 volumeMounts:
