@@ -234,5 +234,5 @@ This guide demonstrated how to configure basic auth and RBAC for the AMQ 7.x con
 - [Sample AMQ config files](https://github.com/apache/activemq-artemis/tree/main/artemis-cli/src/main/resources/org/apache/activemq/artemis/cli/commands/etc)
 - [ActiveMQ role based security permissions for addresses](https://activemq.apache.org/components/artemis/documentation/1.0.0/security.html)
 - [Uses of ActiveMQ management operations](https://access.redhat.com/webassets/avalon/d/red_hat_jboss_enterprise_application_platform/7.4/javadocs/org/apache/activemq/artemis/api/core/management/class-use/Operation.html)
-- [Artemis AMQ User Manual](https://github.com/apache/activemq-artemis/blob/main/docs/user-manual/en/security.md)
+- [Artemis AMQ Security User Manual](https://github.com/apache/activemq-artemis/blob/main/docs/user-manual/en/security.md)
 
