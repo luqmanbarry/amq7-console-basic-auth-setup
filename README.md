@@ -97,7 +97,11 @@ Add the following `<security-settings>` configs. Follow [this link](https://acti
         <permission type="browse" roles="admin, consumer, producer, support"/>
         <!-- Grant consumer, producer users permission to push to all queues -->
         <permission type="send" roles="admin, producer"/>
-        <permission type="manage" roles="admin"/>
+    </security-setting>
+    <!-- users with the admin role will be allowed to manage -->
+    <!-- Apache ActiveMQ Artemis using management messages    -->
+    <security-setting match="activemq.management">
+      <permission type="manage" roles="admin" />
     </security-setting>
     <!-- Adding DLQ permissions -->
     <security-setting match="DLQ#">
