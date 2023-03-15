@@ -27,7 +27,7 @@ Sample AMQ config files are avalaible [this amq-artemis repository.](https://git
 
 ### 1. Prepare the [`artemis-users.properties`](broker-configs/artemis-users.properties) file
 
-Althought plain text passwords are supported, one should mask passwords using the `BROKER_INSTANCE_DIR/bin/artemis mask PlainTextPassword` command.
+Althought plain text passwords are supported, one should mask passwords using the `BROKER_INSTANCE_DIR/bin/artemis mask --hash true --key CLUSTER_PASSWORD PLAINTEXT_PASSWORD` command.
 
 Once password is masked, surround it with `ENC()` when placing it in the [`artemis-users.properties`](broker-configs/artemis-users.properties) file.
 
