@@ -86,12 +86,10 @@ spec:
           - operationType: createAddress
             roles:
               - admin
-              - consumer
               - producer
           - operationType: createDurableQueue
             roles:
               - admin
-              - consumer
               - producer
           - operationType: consume
             roles:
@@ -110,13 +108,9 @@ spec:
           - operationType: deleteAddress
             roles:
               - admin
-              - consumer
-              - producer
           - operationType: deleteDurableQueue
             roles:
               - admin
-              - consumer
-              - producer
           - operationType: createNonDurableQueue
             roles:
               - admin
@@ -124,7 +118,6 @@ spec:
           - operationType: deleteNonDurableQueue
             roles:
               - admin
-              - producer
     management:
       authorisation:
         allowedList:
