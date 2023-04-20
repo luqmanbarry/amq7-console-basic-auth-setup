@@ -27,7 +27,9 @@ Sample AMQ config files are available [this amq-artemis repository.](https://git
 
 ### Define the `Security` resource for storing username, password details
 
-The `Secret` name defined must have as prefix **security-properties-** and as suffix the value of the `ActiveMQArtemisSecurity.spec.loginModules.propertiesLoginModules.name`. `ActiveMQArtemisSecurity.spec.loginModules.propertiesLoginModules.name` must match that of `ActiveMQArtemisSecurity.spec.securityDomains.brokerDomain.loginModules.name`.
+The `Secret` name defined must have as prefix **security-properties-** and as suffix the value of the `ActiveMQArtemisSecurity.spec.loginModules.propertiesLoginModules.name`. 
+
+`ActiveMQArtemisSecurity.spec.loginModules.propertiesLoginModules.name` must match that of `ActiveMQArtemisSecurity.spec.securityDomains.brokerDomain.loginModules.name`.
 
 ```yaml
 kind: Secret
