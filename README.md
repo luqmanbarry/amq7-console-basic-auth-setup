@@ -332,7 +332,7 @@ Add the following `<role-access>` configs. Follow [this link](https://access.red
 </role-access>
 ```
 
-### 5. Set `AMQ_*` template environment variables
+### 5. Set `AMQ_*` template parameters
 
 The following need to be set:
 
