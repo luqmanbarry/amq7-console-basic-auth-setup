@@ -23,7 +23,167 @@ Sample AMQ config files are available [this amq-artemis repository.](https://git
 - Up & Running AMQ Broker Pod
 - Mounting ConfigMaps, Secrets to AMQ Broker supported
 
-## Implementation
+## Operator Based Implementation
+
+### Define the `Security` resource for storing username, password details
+
+The `Secret` name defined must have as prefix **security-properties-** and as suffix the value of the `ActiveMQArtemisSecurity.spec.loginModules.propertiesLoginModules.name`. `ActiveMQArtemisSecurity.spec.loginModules.propertiesLoginModules.name` must match that of `ActiveMQArtemisSecurity.spec.securityDomains.brokerDomain.loginModules.name`.
+
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: security-properties-basic-auth
+stringData:
+  adminuser: ADMIN_PASSWORD
+  artemisuser: ARTEMIS_USER_PASSWORD
+  support: SUPPORT_USER
+type: Opaque
+```
+
+### Define the `ActiveMQArtemisSecurity` for **Role** to **Operation** mapping.
+
+```yaml
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisSecurity
+metadata:
+  name: basic-auth-users
+  namespace: <app-namespace>
+spec:
+  loginModules:
+    propertiesLoginModules:
+      - name: basic-auth
+        users:
+          - name: adminuser
+            roles:
+              - admin
+          - name: artemisuser
+            roles:
+              - producer
+              - consumer
+          - name: supportuser
+            roles:
+              - support
+  securityDomains:
+    brokerDomain:
+      loginModules:
+        - debug: true
+          flag: required
+          name: basic-auth
+          reload: true
+      name: activemq
+  securitySettings:
+    broker:
+      - match: '#'
+        permissions:
+          - operationType: send
+            roles:
+              - admin
+              - producer
+          - operationType: createAddress
+            roles:
+              - admin
+              - consumer
+              - producer
+          - operationType: createDurableQueue
+            roles:
+              - admin
+              - consumer
+              - producer
+          - operationType: consume
+            roles:
+              - admin
+              - consumer
+              - producer
+          - operationType: manage
+            roles:
+              - admin
+          - operationType: browse
+            roles:
+              - admin
+              - producer
+              - consumer
+              - support
+          - operationType: deleteAddress
+            roles:
+              - admin
+              - consumer
+              - producer
+          - operationType: deleteDurableQueue
+            roles:
+              - admin
+              - consumer
+              - producer
+          - operationType: createNonDurableQueue
+            roles:
+              - admin
+              - producer
+          - operationType: deleteNonDurableQueue
+            roles:
+              - admin
+              - producer
+    management:
+      authorisation:
+        allowedList:
+          - domain: hawtio
+        defaultAccess:
+          - method: '*'
+            roles:
+              - admin
+        roleAccess:
+          - accessList:
+              - method: '*'
+                roles:
+                  - admin
+              - method: list*
+                roles:
+                  - 'admin,producer,consumer,support'
+              - method: get*
+                roles:
+                  - 'admin,producer,consumer,support'
+              - method: is*
+                roles:
+                  - 'admin,producer,consumer,support'
+              - method: browse*
+                roles:
+                  - 'admin,producer,consumer,support'
+              - method: set*
+                roles:
+                  - admin
+                  - producer
+              - method: count*
+                roles:
+                  - 'admin,producer,consumer,support'
+            domain: org.apache.activemq.artemis
+          - accessList:
+              - method: '*'
+                roles:
+                  - 'admin,producer,consumer,support'
+              - method: delete*
+                roles:
+                  - admin
+              - method: destroy*
+                roles:
+                  - admin
+            domain: org.apache.activemq.artemis
+            key: queue=DLQ
+          - accessList:
+              - method: '*'
+                roles:
+                  - 'admin,producer,consumer,support'
+              - method: delete*
+                roles:
+                  - admin
+              - method: destroy*
+                roles:
+                  - admin
+            domain: org.apache.activemq.artemis
+            key: queue=ExpiryQueue
+      hawtioRoles:
+        - 'admin,producer,consumer,support'
+```
+
+## Template Based Implementation
 
 ### 1. Prepare the [`artemis-users.properties`](broker-configs/artemis-users.properties) file
 
